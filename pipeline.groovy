@@ -1,5 +1,6 @@
 pipeline {
     agent any
+
     stages {
         stage('Building') {
             steps {
@@ -17,9 +18,9 @@ pipeline {
                 echo 'Deploying Stage Running...'
             }
         }
-        stage('SonarQube analysis') {
+        stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('MySonarQube') {
+                withSonarQubeEnv('SonarQubeServer1') { // Replace with the correct SonarQube server name
                     bat """
                     sonar-scanner -D"sonar.projectKey=python" ^
                     -D"sonar.sources=." ^
