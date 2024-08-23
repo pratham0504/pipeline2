@@ -20,7 +20,7 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQubeServer1') { // Replace with the correct SonarQube server name
+                withSonarQubeEnv('SonarQubeserver') { // Replace with the correct SonarQube server name
                     bat """
                     sonar-scanner -D"sonar.projectKey=python" ^
                     -D"sonar.sources=." ^
