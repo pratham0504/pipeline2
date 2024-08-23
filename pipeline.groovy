@@ -19,15 +19,11 @@ pipeline {
         }
         stage('SonarQube analysis') {
             steps {
-                withSonarQubeEnv('SonarQubeserver') {
-                    bat script: """
-                    sonar-scanner -D"sonar.projectKey=python" \
-                    -D"sonar.sources=." \
-                    -D"sonar.host.url=http://localhost:9000" \
-                    -D"sonar.login=sqp_c84a56847a2f17688bfe80a1d533feac2acab633"
-                    """
-                }
-            }
-        }
-    }
+             withSonarQubeEnv('SonarQubeserver') {
+    bat script: """
+    sonar-scanner -D"sonar.projectKey=python" \
+    -D"sonar.sources=." \
+    -D"sonar.host.url=http://localhost:9000" \
+    -D"sonar.login=sqp_c84a56847a2f17688bfe80a1d533feac2acab633"
+    """
 }
