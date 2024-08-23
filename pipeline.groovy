@@ -19,7 +19,7 @@ pipeline {
         }
         stage('SonarQube analysis') {
             steps {
-                withSonarQubeEnv('sonarhome') {
+                withSonarQubeEnv(SonarQubeserver') {
                     bat script: """
                     sonar-scanner -D"sonar.projectKey=python" \
                     -D"sonar.sources=." \
