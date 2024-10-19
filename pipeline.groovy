@@ -2,33 +2,48 @@ pipeline {
     agent any
 
     stages {
-        stage('Building') {
+        stage('Build') {
             steps {
-                echo 'Building Stage Running...'
-                echo "Running ${env.BUILD_ID} ${env.BUILD_DISPLAY_NAME} on ${env.NODE_NAME} and JOB ${env.JOB_NAME}"
+                echo 'Building..'
+                sh 'echo "Simulating build process"'
             }
         }
-        stage('Testing') {
+        stage('Test') {
             steps {
-                echo 'Testing Stage Running...'
+                echo 'Testing..'
+                sh 'echo "Simulating test execution"'
             }
         }
-        stage('Deploying') {
+        stage('Deploy') {
             steps {
-                echo 'Deploying Stage Running...'
+                echo 'Deployment will be done on my Birthday!!'
+                sh 'echo "Simulating deployment process"'
             }
         }
-        stage('SonarQube Analysis') {
+        stage('SonarQube analysis') {
             steps {
-                withSonarQubeEnv('SonarQubeserver') { // Replace with the correct SonarQube server name
-                    bat """
-                    sonar-scanner -D"sonar.projectKey=python" ^
-                    -D"sonar.sources=." ^
-                    -D"sonar.host.url=http://localhost:9000" ^
-                    -D"sonar.login=sqp_c84a56847a2f17688bfe80a1d533feac2acab633"
-                    """
+                withSonarQubeEnv('SonarHome') {
+                    sh '''
+                    /opt/homebrew/bin/sonar-scanner \
+                    -Dsonar.projectKey=java \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=http://localhost:9000 \
+                    -Dsonar.token=sqp_348caaa0b53e96f64f491d166ea004e8a726565b
+                    '''
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'This will always run'
+        }
+        success {
+            echo 'This will run only if successful'
+        }
+        failure {
+            echo 'This will run only if failed'
         }
     }
 }
